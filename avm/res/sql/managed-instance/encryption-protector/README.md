@@ -35,7 +35,6 @@ This module deploys a SQL Managed Instance Encryption Protector.
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
 | [`autoRotationEnabled`](#parameter-autorotationenabled) | bool | Key auto rotation opt-in flag. |
-| [`enableTelemetry`](#parameter-enabletelemetry) | bool | Enable telemetry via a Globally Unique Identifier (GUID). |
 | [`serverKeyType`](#parameter-serverkeytype) | string | The encryption protector type like "ServiceManaged", "AzureKeyVault". |
 
 ### Parameter: `serverKeyName`
@@ -59,14 +58,6 @@ Key auto rotation opt-in flag.
 - Required: No
 - Type: bool
 - Default: `False`
-
-### Parameter: `enableTelemetry`
-
-Enable telemetry via a Globally Unique Identifier (GUID).
-
-- Required: No
-- Type: bool
-- Default: `True`
 
 ### Parameter: `serverKeyType`
 

@@ -125,13 +125,13 @@ param encryptionProtectorObj object = {}
 @description('Optional. The administrator configuration.')
 param administratorsObj object = {}
 
+@description('Optional. Minimal TLS version allowed.')
 @allowed([
   'None'
   '1.0'
   '1.1'
   '1.2'
 ])
-@description('Optional. Minimal TLS version allowed.')
 param minimalTlsVersion string = '1.2'
 
 @description('Optional. The storage account type used to store backups for this database.')
@@ -168,7 +168,7 @@ var builtInRoleNames = {
 
 
 resource avmTelemetry 'Microsoft.Resources/deployments@2023-07-01' = if (enableTelemetry) {
-  name: take('46d3xbcp.res.sql-managedinstance.${replace('-..--..-', '.', '-')}.${substring(uniqueString(deployment().name, location), 0, 4)}', 64)
+  name: '46d3xbcp.res.sql-managedinstance.${replace('-..--..-', '.', '-')}.${substring(uniqueString(deployment().name, location), 0, 4)}'
   properties: {
     mode: 'Incremental'
     template: {
@@ -291,7 +291,6 @@ module managedInstance_databases 'database/main.bicep' = [for (database, index) 
     tags: database.?tags ?? tags
     backupShortTermRetentionPoliciesObj: contains(database, 'backupShortTermRetentionPolicies') ? database.backupShortTermRetentionPolicies : {}
     backupLongTermRetentionPoliciesObj: contains(database, 'backupLongTermRetentionPolicies') ? database.backupLongTermRetentionPolicies : {}
-    enableTelemetry: enableTelemetry
   }
 }]
 
@@ -302,7 +301,6 @@ module managedInstance_securityAlertPolicy 'security-alert-policy/main.bicep' = 
     name: securityAlertPoliciesObj.name
     emailAccountAdmins: contains(securityAlertPoliciesObj, 'emailAccountAdmins') ? securityAlertPoliciesObj.emailAccountAdmins : false
     state: contains(securityAlertPoliciesObj, 'state') ? securityAlertPoliciesObj.state : 'Disabled'
-    enableTelemetry: enableTelemetry
   }
 }
 
@@ -317,7 +315,6 @@ module managedInstance_vulnerabilityAssessment 'vulnerability-assessment/main.bi
     storageAccountResourceId: vulnerabilityAssessmentsObj.storageAccountResourceId
     useStorageAccountAccessKey: contains(vulnerabilityAssessmentsObj, 'useStorageAccountAccessKey') ? vulnerabilityAssessmentsObj.useStorageAccountAccessKey : false
     createStorageRoleAssignment: contains(vulnerabilityAssessmentsObj, 'createStorageRoleAssignment') ? vulnerabilityAssessmentsObj.createStorageRoleAssignment : true
-    enableTelemetry: enableTelemetry
   }
   dependsOn: [
     managedInstance_securityAlertPolicy
@@ -331,7 +328,6 @@ module managedInstance_keys 'key/main.bicep' = [for (key, index) in keys: {
     managedInstanceName: managedInstance.name
     serverKeyType: contains(key, 'serverKeyType') ? key.serverKeyType : 'ServiceManaged'
     uri: contains(key, 'uri') ? key.uri : ''
-    enableTelemetry: enableTelemetry
   }
 }]
 
@@ -342,7 +338,6 @@ module managedInstance_encryptionProtector 'encryption-protector/main.bicep' = i
     serverKeyName: encryptionProtectorObj.serverKeyName
     serverKeyType: contains(encryptionProtectorObj, 'serverKeyType') ? encryptionProtectorObj.serverKeyType : 'ServiceManaged'
     autoRotationEnabled: contains(encryptionProtectorObj, 'autoRotationEnabled') ? encryptionProtectorObj.autoRotationEnabled : true
-    enableTelemetry: enableTelemetry
   }
   dependsOn: [
     managedInstance_keys
@@ -356,7 +351,6 @@ module managedInstance_administrator 'administrator/main.bicep' = if (!empty(adm
     login: administratorsObj.name
     sid: administratorsObj.sid
     tenantId: contains(administratorsObj, 'tenantId') ? administratorsObj.tenantId : ''
-    enableTelemetry: enableTelemetry
   }
 }
 
@@ -408,7 +402,7 @@ type roleAssignmentType = {
   @description('Optional. The description of the role assignment.')
   description: string?
 
-  @description('Optional. The conditions on the role assignment. This limits the resources it can be assigned to. e.g.: @Resource[Microsoft.Storage/storageAccounts/blobServices/containers:ContainerName] StringEqualsIgnoreCase "foo_storage_container"')
+  @description('Optional. The conditions on the role assignment. This limits the resources it can be assigned to. e.g.: @Resource[Microsoft.Storage/storageAccounts/blobServices/containers:ContainerName] StringEqualsIgnoreCase "foo_storage_container".')
   condition: string?
 
   @description('Optional. Version of the condition.')

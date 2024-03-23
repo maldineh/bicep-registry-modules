@@ -34,7 +34,7 @@ The following section provides usage examples for the module, which were used to
 
 >**Note**: Each example lists all the required parameters first, followed by the rest - each in alphabetical order.
 
->**Note**: To reference the module, please use the following syntax `br/public:avm/bicep-registry-modules:<version>`.
+>**Note**: To reference the module, please use the following syntax `br/public:avm/res/sql/managed-instance:<version>`.
 
 - [Using only defaults](#example-1-using-only-defaults)
 - [Using large parameter set](#example-2-using-large-parameter-set)
@@ -51,8 +51,8 @@ This instance deploys the module with the minimum set of required parameters.
 <summary>via Bicep module</summary>
 
 ```bicep
-module managedInstance 'br/public:avm/bicep-registry-modules:<version>' = {
-  name: '${uniqueString(deployment().name, location)}-test-sqlmimin'
+module managedInstance 'br/public:avm/res/sql/managed-instance:<version>' = {
+  name: 'managedInstanceDeployment'
   params: {
     // Required parameters
     administratorLogin: 'adminUserName'
@@ -60,7 +60,7 @@ module managedInstance 'br/public:avm/bicep-registry-modules:<version>' = {
     name: 'sqlmimin'
     subnetId: '<subnetId>'
     // Non-required parameters
-    enableTelemetry: '<enableTelemetry>'
+    location: '<location>'
   }
 }
 ```
@@ -91,8 +91,8 @@ module managedInstance 'br/public:avm/bicep-registry-modules:<version>' = {
       "value": "<subnetId>"
     },
     // Non-required parameters
-    "enableTelemetry": {
-      "value": "<enableTelemetry>"
+    "location": {
+      "value": "<location>"
     }
   }
 }
@@ -111,8 +111,8 @@ This instance deploys the module with most of its features enabled.
 <summary>via Bicep module</summary>
 
 ```bicep
-module managedInstance 'br/public:avm/bicep-registry-modules:<version>' = {
-  name: '${uniqueString(deployment().name, location)}-test-sqlmimax'
+module managedInstance 'br/public:avm/res/sql/managed-instance:<version>' = {
+  name: 'managedInstanceDeployment'
   params: {
     // Required parameters
     administratorLogin: 'adminUserName'
@@ -156,7 +156,6 @@ module managedInstance 'br/public:avm/bicep-registry-modules:<version>' = {
       }
     ]
     dnsZonePartner: ''
-    enableTelemetry: '<enableTelemetry>'
     encryptionProtectorObj: {
       serverKeyName: '<serverKeyName>'
       serverKeyType: 'AzureKeyVault'
@@ -299,9 +298,6 @@ module managedInstance 'br/public:avm/bicep-registry-modules:<version>' = {
     "dnsZonePartner": {
       "value": ""
     },
-    "enableTelemetry": {
-      "value": "<enableTelemetry>"
-    },
     "encryptionProtectorObj": {
       "value": {
         "serverKeyName": "<serverKeyName>",
@@ -427,8 +423,8 @@ This instance deploys the module with a vulnerability assessment.
 <summary>via Bicep module</summary>
 
 ```bicep
-module managedInstance 'br/public:avm/bicep-registry-modules:<version>' = {
-  name: '${uniqueString(deployment().name, location)}-test-sqlmivln'
+module managedInstance 'br/public:avm/res/sql/managed-instance:<version>' = {
+  name: 'managedInstanceDeployment'
   params: {
     // Required parameters
     administratorLogin: 'adminUserName'
@@ -436,7 +432,6 @@ module managedInstance 'br/public:avm/bicep-registry-modules:<version>' = {
     name: 'sqlmivln'
     subnetId: '<subnetId>'
     // Non-required parameters
-    enableTelemetry: '<enableTelemetry>'
     location: '<location>'
     managedIdentities: {
       systemAssigned: true
@@ -493,9 +488,6 @@ module managedInstance 'br/public:avm/bicep-registry-modules:<version>' = {
       "value": "<subnetId>"
     },
     // Non-required parameters
-    "enableTelemetry": {
-      "value": "<enableTelemetry>"
-    },
     "location": {
       "value": "<location>"
     },
@@ -547,8 +539,8 @@ This instance deploys the module in alignment with the best-practices of the Azu
 <summary>via Bicep module</summary>
 
 ```bicep
-module managedInstance 'br/public:avm/bicep-registry-modules:<version>' = {
-  name: '${uniqueString(deployment().name, location)}-test-sqlmiwaf'
+module managedInstance 'br/public:avm/res/sql/managed-instance:<version>' = {
+  name: 'managedInstanceDeployment'
   params: {
     // Required parameters
     administratorLogin: 'adminUserName'
@@ -592,7 +584,6 @@ module managedInstance 'br/public:avm/bicep-registry-modules:<version>' = {
       }
     ]
     dnsZonePartner: ''
-    enableTelemetry: '<enableTelemetry>'
     encryptionProtectorObj: {
       serverKeyName: '<serverKeyName>'
       serverKeyType: 'AzureKeyVault'
@@ -717,9 +708,6 @@ module managedInstance 'br/public:avm/bicep-registry-modules:<version>' = {
     },
     "dnsZonePartner": {
       "value": ""
-    },
-    "enableTelemetry": {
-      "value": "<enableTelemetry>"
     },
     "encryptionProtectorObj": {
       "value": {
@@ -1291,7 +1279,7 @@ Array of role assignments to create.
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| [`condition`](#parameter-roleassignmentscondition) | string | The conditions on the role assignment. This limits the resources it can be assigned to. e.g.: @Resource[Microsoft.Storage/storageAccounts/blobServices/containers:ContainerName] StringEqualsIgnoreCase "foo_storage_container" |
+| [`condition`](#parameter-roleassignmentscondition) | string | The conditions on the role assignment. This limits the resources it can be assigned to. e.g.: @Resource[Microsoft.Storage/storageAccounts/blobServices/containers:ContainerName] StringEqualsIgnoreCase "foo_storage_container". |
 | [`conditionVersion`](#parameter-roleassignmentsconditionversion) | string | Version of the condition. |
 | [`delegatedManagedIdentityResourceId`](#parameter-roleassignmentsdelegatedmanagedidentityresourceid) | string | The Resource Id of the delegated managed identity resource. |
 | [`description`](#parameter-roleassignmentsdescription) | string | The description of the role assignment. |
@@ -1313,7 +1301,7 @@ The role to assign. You can provide either the display name of the role definiti
 
 ### Parameter: `roleAssignments.condition`
 
-The conditions on the role assignment. This limits the resources it can be assigned to. e.g.: @Resource[Microsoft.Storage/storageAccounts/blobServices/containers:ContainerName] StringEqualsIgnoreCase "foo_storage_container"
+The conditions on the role assignment. This limits the resources it can be assigned to. e.g.: @Resource[Microsoft.Storage/storageAccounts/blobServices/containers:ContainerName] StringEqualsIgnoreCase "foo_storage_container".
 
 - Required: No
 - Type: string

@@ -63,21 +63,6 @@ param backupLongTermRetentionPoliciesObj object = {}
 @description('Optional. Tags of the resource.')
 param tags object?
 
-@description('Optional. Enable telemetry via a Globally Unique Identifier (GUID).')
-param enableTelemetry bool = true
-
-resource defaultTelemetry 'Microsoft.Resources/deployments@2021-04-01' = if (enableTelemetry) {
-  name: 'pid-47ed15a6-730a-4827-bcb4-0fd963ffbd82-${uniqueString(deployment().name, location)}'
-  properties: {
-    mode: 'Incremental'
-    template: {
-      '$schema': 'https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#'
-      contentVersion: '1.0.0.0'
-      resources: []
-    }
-  }
-}
-
 resource managedInstance 'Microsoft.Sql/managedInstances@2022-05-01-preview' existing = {
   name: managedInstanceName
 }
@@ -136,7 +121,6 @@ module database_backupShortTermRetentionPolicy 'backup-short-term-retention-poli
     databaseName: last(split(database.name, '/'))!
     name: backupShortTermRetentionPoliciesObj.name
     retentionDays: contains(backupShortTermRetentionPoliciesObj, 'retentionDays') ? backupShortTermRetentionPoliciesObj.retentionDays : 35
-    enableTelemetry: enableTelemetry
   }
 }
 
@@ -150,7 +134,6 @@ module database_backupLongTermRetentionPolicy 'backup-long-term-retention-policy
     weeklyRetention: contains(backupLongTermRetentionPoliciesObj, 'weeklyRetention') ? backupLongTermRetentionPoliciesObj.weeklyRetention : 'P1M'
     monthlyRetention: contains(backupLongTermRetentionPoliciesObj, 'monthlyRetention') ? backupLongTermRetentionPoliciesObj.monthlyRetention : 'P1Y'
     yearlyRetention: contains(backupLongTermRetentionPoliciesObj, 'yearlyRetention') ? backupLongTermRetentionPoliciesObj.yearlyRetention : 'P5Y'
-    enableTelemetry: enableTelemetry
   }
 }
 

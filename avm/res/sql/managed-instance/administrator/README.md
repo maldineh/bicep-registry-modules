@@ -35,7 +35,6 @@ This module deploys a SQL Managed Instance Administrator.
 
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
-| [`enableTelemetry`](#parameter-enabletelemetry) | bool | Enable telemetry via a Globally Unique Identifier (GUID). |
 | [`tenantId`](#parameter-tenantid) | string | Tenant ID of the managed instance administrator. |
 
 ### Parameter: `login`
@@ -58,14 +57,6 @@ The name of the parent SQL managed instance. Required if the template is used in
 
 - Required: Yes
 - Type: string
-
-### Parameter: `enableTelemetry`
-
-Enable telemetry via a Globally Unique Identifier (GUID).
-
-- Required: No
-- Type: bool
-- Default: `True`
 
 ### Parameter: `tenantId`
 

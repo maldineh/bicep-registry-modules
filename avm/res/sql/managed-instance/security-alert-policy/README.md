@@ -35,7 +35,6 @@ This module deploys a SQL Managed Instance Security Alert Policy.
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
 | [`emailAccountAdmins`](#parameter-emailaccountadmins) | bool | Specifies that the schedule scan notification will be is sent to the subscription administrators. |
-| [`enableTelemetry`](#parameter-enabletelemetry) | bool | Enable telemetry via a Globally Unique Identifier (GUID). |
 | [`state`](#parameter-state) | string | Enables advanced data security features, like recuring vulnerability assesment scans and ATP. If enabled, storage account must be provided. |
 
 ### Parameter: `name`
@@ -59,14 +58,6 @@ Specifies that the schedule scan notification will be is sent to the subscriptio
 - Required: No
 - Type: bool
 - Default: `False`
-
-### Parameter: `enableTelemetry`
-
-Enable telemetry via a Globally Unique Identifier (GUID).
-
-- Required: No
-- Type: bool
-- Default: `True`
 
 ### Parameter: `state`
 

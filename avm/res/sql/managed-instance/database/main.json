@@ -5,8 +5,8 @@
   "metadata": {
     "_generator": {
       "name": "bicep",
-      "version": "0.25.53.49325",
-      "templateHash": "9053948400646704930"
+      "version": "0.26.54.24096",
+      "templateHash": "10353220337501409306"
     },
     "name": "SQL Managed Instance Databases",
     "description": "This module deploys a SQL Managed Instance Database.",
@@ -256,30 +256,9 @@
       "metadata": {
         "description": "Optional. Tags of the resource."
       }
-    },
-    "enableTelemetry": {
-      "type": "bool",
-      "defaultValue": true,
-      "metadata": {
-        "description": "Optional. Enable telemetry via a Globally Unique Identifier (GUID)."
-      }
     }
   },
   "resources": {
-    "defaultTelemetry": {
-      "condition": "[parameters('enableTelemetry')]",
-      "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2021-04-01",
-      "name": "[format('pid-47ed15a6-730a-4827-bcb4-0fd963ffbd82-{0}', uniqueString(deployment().name, parameters('location')))]",
-      "properties": {
-        "mode": "Incremental",
-        "template": {
-          "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
-          "contentVersion": "1.0.0.0",
-          "resources": []
-        }
-      }
-    },
     "managedInstance": {
       "existing": true,
       "type": "Microsoft.Sql/managedInstances",
@@ -364,10 +343,7 @@
           "name": {
             "value": "[parameters('backupShortTermRetentionPoliciesObj').name]"
           },
-          "retentionDays": "[if(contains(parameters('backupShortTermRetentionPoliciesObj'), 'retentionDays'), createObject('value', parameters('backupShortTermRetentionPoliciesObj').retentionDays), createObject('value', 35))]",
-          "enableTelemetry": {
-            "value": "[parameters('enableTelemetry')]"
-          }
+          "retentionDays": "[if(contains(parameters('backupShortTermRetentionPoliciesObj'), 'retentionDays'), createObject('value', parameters('backupShortTermRetentionPoliciesObj').retentionDays), createObject('value', 35))]"
         },
         "template": {
           "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
@@ -375,8 +351,8 @@
           "metadata": {
             "_generator": {
               "name": "bicep",
-              "version": "0.25.53.49325",
-              "templateHash": "10131830396563699985"
+              "version": "0.26.54.24096",
+              "templateHash": "4286849501617818906"
             },
             "name": "SQL Managed Instance Database Backup Short-Term Retention Policies",
             "description": "This module deploys a SQL Managed Instance Database Backup Short-Term Retention Policy.",
@@ -407,30 +383,9 @@
               "metadata": {
                 "description": "Optional. The backup retention period in days. This is how many days Point-in-Time Restore will be supported."
               }
-            },
-            "enableTelemetry": {
-              "type": "bool",
-              "defaultValue": true,
-              "metadata": {
-                "description": "Optional. Enable telemetry via a Globally Unique Identifier (GUID)."
-              }
             }
           },
           "resources": [
-            {
-              "condition": "[parameters('enableTelemetry')]",
-              "type": "Microsoft.Resources/deployments",
-              "apiVersion": "2021-04-01",
-              "name": "[format('pid-47ed15a6-730a-4827-bcb4-0fd963ffbd82-{0}', uniqueString(deployment().name))]",
-              "properties": {
-                "mode": "Incremental",
-                "template": {
-                  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
-                  "contentVersion": "1.0.0.0",
-                  "resources": []
-                }
-              }
-            },
             {
               "type": "Microsoft.Sql/managedInstances/databases/backupShortTermRetentionPolicies",
               "apiVersion": "2022-05-01-preview",
@@ -492,10 +447,7 @@
           "weekOfYear": "[if(contains(parameters('backupLongTermRetentionPoliciesObj'), 'weekOfYear'), createObject('value', parameters('backupLongTermRetentionPoliciesObj').weekOfYear), createObject('value', 5))]",
           "weeklyRetention": "[if(contains(parameters('backupLongTermRetentionPoliciesObj'), 'weeklyRetention'), createObject('value', parameters('backupLongTermRetentionPoliciesObj').weeklyRetention), createObject('value', 'P1M'))]",
           "monthlyRetention": "[if(contains(parameters('backupLongTermRetentionPoliciesObj'), 'monthlyRetention'), createObject('value', parameters('backupLongTermRetentionPoliciesObj').monthlyRetention), createObject('value', 'P1Y'))]",
-          "yearlyRetention": "[if(contains(parameters('backupLongTermRetentionPoliciesObj'), 'yearlyRetention'), createObject('value', parameters('backupLongTermRetentionPoliciesObj').yearlyRetention), createObject('value', 'P5Y'))]",
-          "enableTelemetry": {
-            "value": "[parameters('enableTelemetry')]"
-          }
+          "yearlyRetention": "[if(contains(parameters('backupLongTermRetentionPoliciesObj'), 'yearlyRetention'), createObject('value', parameters('backupLongTermRetentionPoliciesObj').yearlyRetention), createObject('value', 'P5Y'))]"
         },
         "template": {
           "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
@@ -503,8 +455,8 @@
           "metadata": {
             "_generator": {
               "name": "bicep",
-              "version": "0.25.53.49325",
-              "templateHash": "9210916837631267118"
+              "version": "0.26.54.24096",
+              "templateHash": "14328831396985800317"
             },
             "name": "SQL Managed Instance Database Backup Long-Term Retention Policies",
             "description": "This module deploys a SQL Managed Instance Database Backup Long-Term Retention Policy.",
@@ -556,30 +508,9 @@
               "metadata": {
                 "description": "Optional. The yearly retention policy for an LTR backup in an ISO 8601 format."
               }
-            },
-            "enableTelemetry": {
-              "type": "bool",
-              "defaultValue": true,
-              "metadata": {
-                "description": "Optional. Enable telemetry via a Globally Unique Identifier (GUID)."
-              }
             }
           },
           "resources": [
-            {
-              "condition": "[parameters('enableTelemetry')]",
-              "type": "Microsoft.Resources/deployments",
-              "apiVersion": "2021-04-01",
-              "name": "[format('pid-47ed15a6-730a-4827-bcb4-0fd963ffbd82-{0}', uniqueString(deployment().name))]",
-              "properties": {
-                "mode": "Incremental",
-                "template": {
-                  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
-                  "contentVersion": "1.0.0.0",
-                  "resources": []
-                }
-              }
-            },
             {
               "type": "Microsoft.Sql/managedInstances/databases/backupLongTermRetentionPolicies",
               "apiVersion": "2022-05-01-preview",
